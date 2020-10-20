@@ -131,11 +131,11 @@ class EntityDisplay:
             for i in objects:
                 i.destroy()
 
-            f = open('info.txt', 'r')
+            f2 = open('info.txt', 'r')
             lines = f.readlines()
-            f.close()
+            f2.close()
 
-            f = open('info.txt', "w")
+            f2 = open('info.txt', "w")
             count = 0
 
             for line in lines:
@@ -143,7 +143,7 @@ class EntityDisplay:
                     f.write(line)
                     count += 1
 
-            f.close()
+            f2.close()
             read_file()
 
     def destroy(self):
@@ -154,19 +154,18 @@ class EntityDisplay:
 
 
 if not os.path.isfile(os.path.join(os.path.dirname(__file__), "info.txt")):
-    with open(os.path.join(os.path.dirname(__file__), "info.txt"), "w") as f:
-        f.write("")
+    with open(os.path.join(os.path.dirname(__file__), "info.txt"), "w") as f1:
+        f1.write("")
 
 
 if not os.path.isfile(os.path.join(os.path.dirname(__file__), "master.txt")):
-    with open(os.path.join(os.path.dirname(__file__), "master.txt"), "wb") as f:
+    with open(os.path.join(os.path.dirname(__file__), "master.txt"), "wb") as f1:
         master_pwd = input("To create a new master password delete the master.txt file\nNew master password: ")
-        pickle.dump(Password(master_pwd), f)
+        pickle.dump(Password(master_pwd), f1)
         access = master_pwd
 
 else:
-    f = open("master.txt")
-    access = pickle.load(f).text
+    access = pickle.load(open("master.txt", "rb")).text
 
 
 def on_submit():
@@ -183,21 +182,21 @@ def on_submit():
 
 
 def clear_file():
-    f = open('info.txt', "w")
-    f.close()
+    f3 = open('info.txt', "w")
+    f3.close()
 
 
 def read_file():
-    f = open('info.txt', 'r')
+    f3 = open('info.txt', 'r')
     count = 0
 
-    for line in f:
+    for line in f3:
         entity_list = line.split(',')
         e = EntityDisplay(window, entity_list[0], entity_list[1], entity_list[2], count)
         objects.append(e)
         e.display()
         count += 1
-    f.close()
+    f3.close()
 
 
 m = PopupWindow(window)
